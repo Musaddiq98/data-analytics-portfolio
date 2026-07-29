@@ -1,0 +1,15 @@
+# Local development environments and caches
+.venv/
+.matplotlib/
+__pycache__/
+.ipynb_checkpoints/
+
+# Large raw extracts and archives
+*.zip
+projects/bellabeat-fitness-tracker-analysis/data/minute*.csv
+projects/bellabeat-fitness-tracker-analysis/data/heartrate*.csv
+projects/bellabeat-fitness-tracker-analysis/data/hourly*.csv
+projects/bellabeat-fitness-tracker-analysis/data/dailyCalories_merged.csv
+projects/bellabeat-fitness-tracker-analysis/data/dailyIntensities_merged.csv
+projects/bellabeat-fitness-tracker-analysis/data/dailySteps_merged.csv
+projects/bellabeat-fitness-tracker-analysis/data/weightLogInfo_merged.csv
