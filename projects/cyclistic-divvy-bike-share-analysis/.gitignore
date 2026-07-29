@@ -1,0 +1,9 @@
+.venv/
+.matplotlib/
+__pycache__/
+.ipynb_checkpoints/
+data/raw/*.zip
+!data/source_urls.csv
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!reports/figures/.gitkeep
