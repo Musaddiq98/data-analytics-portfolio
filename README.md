@@ -25,5 +25,4 @@ The analyses use public or openly available data and are presented for portfolio
 
 ## Author
 
-**Musaddiq**  
-Add your LinkedIn and portfolio links here before sharing this repository publicly.
+**Musaddiq**

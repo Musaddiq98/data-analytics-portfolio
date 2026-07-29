@@ -24,6 +24,18 @@ The data processing and cleaning steps were performed using Python with the Pand
 - Merging the `dailyActivity` and `sleepDay` datasets on `Id` and `Date` to create a comprehensive dataset for analysis.
 - Feature engineering: Calculating `TotalActiveMinutes` and categorizing users into `UserType` (Sedentary, Lightly Active, Fairly Active, Very Active) based on their `TotalSteps`.
 
+## Reproduce the analysis
+
+```bash
+python -m venv .venv
+# Windows PowerShell
+.venv\\Scripts\\Activate.ps1
+pip install -r requirements.txt
+python scripts/analysis.py
+```
+
+The repository includes the two source files required by the script. See `data/README.md` for the full public dataset source.
+
 ## Key Findings and Visualizations
 
 ### 1. Relationship between Total Steps and Calories Burned
@@ -81,7 +93,6 @@ TotalActiveMinutes,937,2.275411e+02,1.408587e+02,0.000000e+00,1.460000e+02,2.290
 ## Recommendations for Bellabeat Marketing Strategy
 Based on the analysis of the FitBit fitness tracker data, here are high-level recommendations for Bellabeat's marketing strategy:
 
-1.  **Target 
 1.  **Target Sedentary Users with Engagement Campaigns:** A significant portion of users are categorized as 'Sedentary'. Bellabeat can develop targeted marketing campaigns and in-app challenges to encourage these users to increase their daily activity. Highlighting the health benefits of even light activity and offering achievable goals could be effective. For example, promoting the Leaf or Time devices with features that gently nudge users towards more movement throughout the day.
 
 2.  **Promote Sleep Hygiene Features:** The strong correlation between time in bed and minutes asleep, along with some outliers, indicates an opportunity to promote Bellabeat's sleep tracking features. Marketing could focus on how Bellabeat products (Leaf, Time) provide insights into sleep patterns and offer personalized guidance (via Bellabeat app/membership) to improve sleep quality, not just quantity. This could include tips for optimizing bedtime routines or stress reduction techniques.

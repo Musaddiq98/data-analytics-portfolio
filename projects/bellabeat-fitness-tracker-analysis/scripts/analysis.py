@@ -2,15 +2,20 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-import os
+from pathlib import Path
 
 # Set aesthetic style for plots
 sns.set_theme(style="whitegrid")
 
+# Resolve paths from this script so it runs from any working directory.
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+data_dir = PROJECT_ROOT / 'data'
+output_dir = PROJECT_ROOT / 'visualizations'
+docs_dir = PROJECT_ROOT / 'docs'
+
 # Load datasets
-data_dir = '../data/'
-daily_activity = pd.read_csv(os.path.join(data_dir, 'dailyActivity_merged.csv'))
-sleep_day = pd.read_csv(os.path.join(data_dir, 'sleepDay_merged.csv'))
+daily_activity = pd.read_csv(data_dir / 'dailyActivity_merged.csv')
+sleep_day = pd.read_csv(data_dir / 'sleepDay_merged.csv')
 
 # Data Cleaning & Transformation
 # Convert ActivityDate to datetime
@@ -49,9 +54,7 @@ def activity_category(steps):
 merged_data['UserType'] = merged_data['TotalSteps'].apply(activity_category)
 
 # Analysis & Visualizations
-output_dir = '../visualizations/'
-if not os.path.exists(output_dir):
-    os.makedirs(output_dir)
+output_dir.mkdir(exist_ok=True)
 
 # 1. Total Steps vs Calories
 plt.figure(figsize=(10, 6))
@@ -59,7 +62,7 @@ sns.scatterplot(data=merged_data, x='TotalSteps', y='Calories', hue='UserType', 
 plt.title('Relationship between Total Steps and Calories Burned')
 plt.xlabel('Total Steps')
 plt.ylabel('Calories')
-plt.savefig(os.path.join(output_dir, 'steps_vs_calories.png'))
+plt.savefig(output_dir / 'steps_vs_calories.png')
 plt.close()
 
 # 2. Total Minutes Asleep vs Total Time in Bed
@@ -68,7 +71,7 @@ sns.regplot(data=merged_data, x='TotalTimeInBed', y='TotalMinutesAsleep', scatte
 plt.title('Total Time in Bed vs Total Minutes Asleep')
 plt.xlabel('Total Time in Bed (min)')
 plt.ylabel('Total Minutes Asleep (min)')
-plt.savefig(os.path.join(output_dir, 'bed_vs_sleep.png'))
+plt.savefig(output_dir / 'bed_vs_sleep.png')
 plt.close()
 
 # 3. Distribution of User Types
@@ -76,7 +79,7 @@ plt.figure(figsize=(8, 8))
 user_type_counts = merged_data['UserType'].value_counts()
 plt.pie(user_type_counts, labels=user_type_counts.index, autopct='%1.1f%%', startangle=140, colors=sns.color_palette('pastel'))
 plt.title('Distribution of User Activity Levels')
-plt.savefig(os.path.join(output_dir, 'user_type_distribution.png'))
+plt.savefig(output_dir / 'user_type_distribution.png')
 plt.close()
 
 # 4. Average Steps by Day of the Week
@@ -89,11 +92,11 @@ sns.barplot(x=avg_steps_day.index, y=avg_steps_day.values, palette='magma')
 plt.title('Average Total Steps by Day of the Week')
 plt.xlabel('Day of the Week')
 plt.ylabel('Average Steps')
-plt.savefig(os.path.join(output_dir, 'avg_steps_by_day.png'))
+plt.savefig(output_dir / 'avg_steps_by_day.png')
 plt.close()
 
 # Summary Statistics for README
 summary_stats = merged_data.describe()
-summary_stats.to_csv('../docs/summary_statistics.csv')
+summary_stats.to_csv(docs_dir / 'summary_statistics.csv')
 
 print("Analysis complete. Visualizations and summary statistics saved.")
