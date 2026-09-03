@@ -1,0 +1,24 @@
+# Environments and package caches
+.venv/
+venv/
+env/
+.matplotlib/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.env
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Excluded high-frequency raw tables (>50MB)
+data/minute*.csv
+data/heartrate*.csv
+data/hourly*.csv
+data/dailyCalories_merged.csv
+data/dailyIntensities_merged.csv
+data/dailySteps_merged.csv
+data/weightLogInfo_merged.csv
