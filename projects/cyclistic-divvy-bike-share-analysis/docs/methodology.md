@@ -1,24 +1,29 @@
-# Methodology and data quality notes
+# Methodology and Data Quality Specifications
 
-## Analysis scope
+## Analysis Scope
 
-The fictional Cyclistic case study asks how casual riders and annual members use bikes differently. This project operationalizes that question with four descriptive measures: trip volume, average trip duration, weekday/weekend mix, and bike-type mix.
+This analysis evaluates how casual riders and annual subscribers utilize the municipal bicycle-sharing network differently. The investigation evaluates four primary quantitative dimensions: trip volume, ride duration, weekly cadence, and fleet mix.
 
-## Source lineage
+## Source Lineage
 
-Every download URL and its archive month is recorded in `data/source_urls.csv`. The sources are public monthly ZIP archives from Divvy. The script never overwrites the manifest, so a reviewer can see exactly which files produced a run.
+Download endpoints and archive months are cataloged in `data/source_urls.csv`. The inputs are public monthly archives published by Divvy / Lyft. The script preserves the source manifest to ensure deterministic data lineage.
 
-## Cleaning and validation
+## Validation and Cleansing Pipeline
 
-For every input row, the pipeline checks that both timestamps parse, rider type is `casual` or `member`, and duration falls between the configured limits (1 minute and 24 hours by default). The quality report gives the counts at the archive-month level. Data is processed in 200,000-row chunks and is summarized before the next chunk is read.
+For every ingested row, the pipeline validates:
+1. Parseability of start and end timestamps.
+2. Chronological sequence (`ended_at > started_at`).
+3. Rider classification (`member` or `casual`).
+4. Duration thresholds ($1\text{ min} \le t \le 24\text{ hrs}$).
 
-## Limits
+Quality counts are logged at the archive-month grain in `data/processed/data_quality_report.csv`. Data is transformed in 200,000-row streaming chunks to ensure constant memory utilization.
 
-- A trip archive can include a small number of rides that began in the preceding calendar month; all charts use the actual `started_at` month.
-- Public trip data does not reveal a rider's identity, membership purchase history, demographics, marketing exposure, or reason for traveling.
-- Associations in these summaries do not establish that a message or offer caused conversion.
-- Station availability, weather, operational changes, and the selected duration bounds may affect observed patterns.
+## Analytical Limitations
 
-## Decision framework
+- Small volumes of trips beginning in the final hours of a calendar month appear in the following month's archive; records are classified by true `started_at` timestamps.
+- Public trip logs do not contain demographic identifiers, residential locations, pricing tiers, or trip purpose.
+- Observed patterns indicate behavioral correlations and should be tested via controlled experiments before broad commercial deployment.
 
-Use the descriptive analysis to select plausible audience/timing hypotheses, then validate them with a randomized controlled experiment. Pre-register a primary conversion metric, retain a holdout group, and monitor longer-term retention and contribution margin as guardrails.
+## Decision Framework
+
+Descriptive findings inform acquisition and conversion hypotheses. Proposed interventions should be deployed via randomized controlled trials with a designated holdout group, measuring 30-day conversion, 90-day retention, and net revenue contribution.

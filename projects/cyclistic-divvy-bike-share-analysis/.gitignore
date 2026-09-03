@@ -1,7 +1,20 @@
+# Environments and package caches
 .venv/
+venv/
+env/
 .matplotlib/
 __pycache__/
+*.py[cod]
 .ipynb_checkpoints/
+.env
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Raw archives and large dumps
 data/raw/*.zip
 !data/source_urls.csv
 !data/raw/.gitkeep
