@@ -1,11 +1,33 @@
-# Local development environments and caches
+# Environments and package caches
 .venv/
+venv/
+env/
 .matplotlib/
-__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
 .ipynb_checkpoints/
+.env
+.env.*
 
-# Large raw extracts and archives
+# IDE and operating system artifacts
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Raw archive dumps and large extracts (>50MB)
 *.zip
+*.tar.gz
+*.rar
+*.7z
+projects/cyclistic-divvy-bike-share-analysis/data/raw/*.zip
+!projects/cyclistic-divvy-bike-share-analysis/data/raw/.gitkeep
+!projects/cyclistic-divvy-bike-share-analysis/data/processed/.gitkeep
+!projects/cyclistic-divvy-bike-share-analysis/reports/figures/.gitkeep
+
+# Excluded granular Fitbit tracking files
 projects/bellabeat-fitness-tracker-analysis/data/minute*.csv
 projects/bellabeat-fitness-tracker-analysis/data/heartrate*.csv
 projects/bellabeat-fitness-tracker-analysis/data/hourly*.csv
